@@ -56,7 +56,7 @@ output_node.moveToGoodPosition()
 voxelParm = hou.FloatParmTemplate("flipObjVoxelSize", "Voxel Size", 1, (1.0,0.0,0.0), default_expression=("ch('particlesep')*ch('gridscale')", "", ""))
 
 # Add parm into node
-flip_object.addSpareParmTuple(voxelParm)
+flip_object.addSpareParmTuple(voxelParm, ("Properties",))
 flip_object.parm("particlesep").set(0.05)
 flip_object.parm("closedends").set(True)
 flip_object.parm("surfacetype").set(1)
@@ -67,7 +67,10 @@ flip_object.parm("visprim").set(3)
 volume_source.parm("initialize").set(7)
 volume_source.parm("soppath").set("../../OUT_SOURCE")
 volume_source.parm("sourceparticles").set(True)
+
 # flipSolver
+# Set voxelSize
+flip_source.parm("voxelsize").setExpression("ch('../dopnet_inhouse/tool_flipsObject/flipObjVoxelSize')")
 # Box limits, reference to box layout.
 flip_solver.parm("limit_sizex").setExpression("bbox('../../OUT_BOUNDS/', D_XSIZE)")
 flip_solver.parm("limit_sizey").setExpression("bbox('../../OUT_BOUNDS/', D_YSIZE)")
